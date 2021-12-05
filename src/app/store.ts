@@ -1,17 +1,15 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { tasksReducer } from "./reducers/tasksReducer";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
-export const store = configureStore({
-  reducer: {
-    counter: counterReducer,
-  },
+export const rootReducer = combineReducers({
+  tasks: tasksReducer,
 });
 
-export type AppDispatch = typeof store.dispatch;
+const store = configureStore({
+  reducer: rootReducer,
+});
+
 export type RootState = ReturnType<typeof store.getState>;
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  Action<string>
->;
+export type AppDispatch = typeof store.dispatch;
+
+export default store;
